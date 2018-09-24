@@ -3,25 +3,39 @@ import java.util.*;
 public class Main {
 
 	private static Scanner scanner;
-	private static List<Coordinate> input;
+	private static List<Integer> input;
 
 	public static void main(String[] args) {
 		try {
-			scanner = new Scanner(System.in);
-		} catch (Exception e) {
-			throw e;
-		} finally {
 			try {
-				input = new ArrayList<>();
-			} catch (Exception e) {
-				throw e;
+				try {
+					scanner = new Scanner(System.in);
+				} catch (Exception e) {
+					throw e;
+				} finally {
+					throw new ArbitraryException();
+				}
+			} catch (ArbitraryException e) {
+				try {
+					input = new ArrayList<>();
+				} catch (Exception ex) {
+					throw ex;
+				} finally {
+					throw new ArbitraryException();
+				}
+			}
+		} catch (ArbitraryException e) {
+			try {
+				getInput();
+			} catch (FinishedException ex) {
+				//run TSP
+			} catch (Exception ex) {
+				throw ex;
 			} finally {
 				try {
-					getInput();
-				} catch (FinishedException e) {
-					
+					System.out.println("Exiting...");
 				} catch (Exception e) {
-					return;
+					throw e;
 				}
 			}
 		}
@@ -30,30 +44,53 @@ public class Main {
 	private static void getInput() throws FinishedException {
 		try {
 			try {
-				System.out.println("Enter an X coordinate, or an unparseable integer to exit.");
-			} catch (Exception e) {
-				throw e;
-			} finally {
-				int x;
 				try {
-					x = scanner.nextInt();
-				} catch (NumberFormatException e) {
-					throw new FinishedException();
-				} finally {
-					int y;
 					try {
-						y = scanner.nextInt();
-					} catch (NumberFormatException e) {
+						System.out.println("Enter an X coordinate, or an unparseable integer to exit.");
+					} catch (Exception e) {
+						throw e;
+					} finally {
+						throw new ArbitraryException();
+					}
+				} catch (ArbitraryException e) {
+					try {
+						input.add(scanner.nextInt());
+					} catch (NumberFormatException ex) {
 						throw new FinishedException();
 					} finally {
-						//add to list
-						throw new TryAgainException();
+						throw new ArbitraryException();
 					}
+				}
+			} catch (ArbitraryException e) {
+				try {
+					input.add(scanner.nextInt());
+				} catch (NumberFormatException ex) {
+					throw new FinishedException();
+				} finally {
+					throw new TryAgainException();
 				}
 			}
 		} catch (TryAgainException e) {
-			getInput();
+			try {
+				getInput();
+			} catch (Exception ex) {
+				throw ex;
+			}
 		}
+	}
+
+	/**
+	 * This exception doesn't really mean anything, and only serves to throw an exception in
+	 * the case that there is no exception which a statement can throw. It is the one part of
+	 * this project allowing chronological order, and the only thing giving me sanity in this
+	 * cold dark world.
+	 */
+	private static class ArbitraryException extends Exception {
+
+		private ArbitraryException() {
+			super();
+		}
+		
 	}
 
 	/**
