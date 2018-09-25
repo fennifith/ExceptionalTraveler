@@ -76,7 +76,7 @@ try {
 }
 ```
 
-There. Now the method `willNotThrowAnException()` will always throw an `ArbitraryException` when it is run, right? However... what if you want a different result in the event that an exception *is* thrown? If `willNotThrowAnException()` throws an exception in this snippet, then even though it gets passed to the `catch` block (which throws it again), the `finally` block is still run before the original exception is thrown, effectively overwriting it with an `ArbitraryException` either way. In order to combat this, I racked my brain and actually took advantage of this overwriting behavior to come up with this uselessly complex snippet:
+There. Now the method `willNotThrowAnException()` will always throw an `ArbitraryException` when it is run, right? However... what if you want a different result in the event that an exception *is* thrown by the method? If `willNotThrowAnException()` throws an exception in this snippet, then even though it gets passed to the `catch` block (which throws it again), the `finally` block is still run before the original exception is thrown, effectively overwriting it with the `ArbitraryException` either way. In order to combat this, I racked my brain and actually took advantage of this overwriting behavior to come up with this uselessly complex snippet:
 
 ```java
 try {
@@ -98,4 +98,4 @@ try {
 }
 ```
 
-Yep, this is definitely complicated and stupid. Just what I needed! Now if `mightThrowAnException()` throws an exception, it will overwrite the `ExceptionNotThrownException` being thrown in the original `try` block and replace it with its own `ExceptionThrownException`, altering the flow of the program.
+Yep, this is definitely complicated and stupid. Just what I needed! Now, if `mightThrowAnException()` throws an exception, it will overwrite the `ExceptionNotThrownException` being thrown in the original `try` block and replace it with its own `ExceptionThrownException`, altering the flow of the program.
