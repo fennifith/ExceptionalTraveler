@@ -1,10 +1,23 @@
-> ExceptionalTraveler is an implementation of the Traveling Salesperson Problem using the fundamentals of Exceptional Programming.
+> My programming is always Exceptional.
 
 This program is a joke. It is not serious. Please do not take this program seriously. It is not a good demonstration of my programming skills. Do not use this program as reference material. Please don't use this program to educate yourself or others on Java programming. Avoid looking at this program for extended amounts of time. If you experience dizziness or a loss of balance while viewing this program, stop staring at it in awe and seek medical help immediately. If you feel the effects depression or anxiety after becoming aware of this program's existence, please see a qualified counselor for assistance.
 
+The idea for this program was taken from Chet Haase's article for Pointer IO on [Exceptional Programming](https://medium.com/pointer-io/exceptional-programming-62ea8150f61f), which describes a programming style using just try/catch blocks and exceptions as the only control structure.
+
+## Setup
+
+Obviously, this is a Java program. In order to run this program, download the source code and run the following commands:
+
+```shell
+javac Main.java
+java Main
+```
+
+The program will then prompt you to input coordinates, after which it will pass the coordinates to `TravelingSalesPerson.java`, which will calculate and output the resulting order.
+
 ## Guidelines
 
-The idea for this program was taken from Chet Haase's article for Pointer IO on [Exceptional Programming](https://medium.com/pointer-io/exceptional-programming-62ea8150f61f), which describes a programming style using just try/catch blocks and exceptions as the only control structure. The article is a little vague about the requirements for a program to be "Exceptional", but a code snippet from the article establishes a few guidelines, from which I have made up some more specific rules for this program.
+The article is a little vague about the requirements for a program to be "Exceptional", but a code snippet from the article establishes a few guidelines, from which I have made up some more specific rules for this program.
 
 ```java
 try {
@@ -107,3 +120,7 @@ As the primary joy that comes from Exceptional Programming is coming up with a w
 - One can not assert.
 
 Another possible argument for this is that assertions are intended mainly for use as tests and should not show up in the code of an actual application.
+
+## Contributing
+
+Please do not contribute to this project, it is horrific enough already. However, if you would like to contribute, you can see [CONTRIBUTING.md](./.github/CONTRIBUTING.md) for more information.
