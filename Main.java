@@ -55,7 +55,7 @@ public class Main {
 
 	private static void getInput() throws FinishedException {
 		try {
-			int x, y;
+			int x = 0, y = 0;
 			try {
 				try {
 					throw new ArbitraryException();
