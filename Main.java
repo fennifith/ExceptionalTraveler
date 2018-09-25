@@ -3,21 +3,34 @@ import java.util.*;
 public class Main {
 
 	private static Scanner scanner;
-	private static List<Integer> input;
+	private static List<Integer> inputX;
+	private static List<Integer> inputY;
 
 	public static void main(String[] args) {
 		try {
 			try {
 				try {
-					scanner = new Scanner(System.in);
-				} catch (Exception e) {
-					throw e;
+					try {
+						scanner = new Scanner(System.in);
+					} catch (Exception e) {
+						throw e;
+					} finally {
+						throw new ArbitraryException();
+					}
+				} catch (ArbitraryException e) {
+					try {
+						inputX = new ArrayList<>();
+					} catch (Exception ex) {
+						throw ex;
+					} finally {
+						throw new ArbitraryException();
+					}
 				} finally {
 					throw new ArbitraryException();
 				}
 			} catch (ArbitraryException e) {
 				try {
-					input = new ArrayList<>();
+					inputY = new ArrayList<>();
 				} catch (Exception ex) {
 					throw ex;
 				} finally {
@@ -34,8 +47,8 @@ public class Main {
 			} finally {
 				try {
 					System.out.println("Exiting...");
-				} catch (Exception e) {
-					throw e;
+				} catch (Exception exc) {
+					throw exc;
 				}
 			}
 		}
@@ -45,35 +58,49 @@ public class Main {
 		try {
 			try {
 				try {
+					throw new ArbitraryException();
+				} catch (Exception e) {
+					throw e;
+				} finally {
 					try {
-						System.out.println("Enter an X coordinate, or an unparseable integer to exit.");
-					} catch (Exception e) {
-						throw e;
+						System.out.print("Enter an X coordinate, or an unparseable integer to exit: ");
+					} catch (Exception ex) {
+						throw ex;
 					} finally {
-						throw new ArbitraryException();
-					}
-				} catch (ArbitraryException e) {
-					try {
-						input.add(scanner.nextInt());
-					} catch (NumberFormatException ex) {
-						throw new FinishedException();
-					} finally {
-						throw new ArbitraryException();
+						try {
+							inputX.add(Integer.parseInt(scanner.nextLine()));
+						} catch (NumberFormatException e) {
+							throw new FinishedException();
+						}
 					}
 				}
 			} catch (ArbitraryException e) {
 				try {
-					input.add(scanner.nextInt());
-				} catch (NumberFormatException ex) {
-					throw new FinishedException();
-				} finally {
+					try {
+						throw new ArbitraryException();
+					} catch (Exception ex) {
+						throw ex;
+					} finally {
+						try {
+							System.out.print("Enter the Y coordinate: ");
+						} catch (Exception exc) {
+							throw exc;
+						} finally {
+							try {
+								inputY.add(Integer.parseInt(scanner.nextLine()));
+							} catch (NumberFormatException exce) {
+								throw new FinishedException();
+							}
+						}
+					}
+				} catch (ArbitraryException ex) {
 					throw new TryAgainException();
 				}
 			}
 		} catch (TryAgainException e) {
 			try {
 				getInput();
-			} catch (Exception ex) {
+			} catch (FinishedException ex) {
 				throw ex;
 			}
 		}
