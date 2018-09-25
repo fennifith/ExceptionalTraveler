@@ -1,4 +1,4 @@
-> ExceptionalTraveler is an implementation of the Traveling Salesperson problem using the fundamentals of Exceptional Programming.
+> ExceptionalTraveler is an implementation of the Traveling Salesperson Problem using the fundamentals of Exceptional Programming.
 
 This program is a joke. It is not serious. Please do not take this program seriously. It is not a good demonstration of my programming skills. Do not use this program as reference material. Please don't use this program to educate yourself or others on Java programming. Avoid looking at this program for extended amounts of time. If you experience dizziness or a loss of balance while viewing this program, stop staring at it in awe and seek medical help immediately. If you feel the effects depression or anxiety after becoming aware of this program's existence, please see a qualified counselor for assistance.
 
@@ -8,19 +8,19 @@ The idea for this program was taken from Chet Haase's article for Pointer IO on 
 
 ```java
 try {
-	someMethod();
+    someMethod();
 } catch (NormalException e) {
-	try {
-		anotherMethod();
-	} catch (NormalException e) {
-		try {
-			yetAnotherMethod();
-		} catch (NormalException e) {
-			throw new NormalException("Everything's fine");
-		}
-	}
+    try {
+        anotherMethod();
+    } catch (NormalException e) {
+        try {
+            yetAnotherMethod();
+        } catch (NormalException e) {
+            throw new NormalException("Everything's fine");
+        }
+    }
 } finally {
-	throw new NormalException("Everything's fine");
+    throw new NormalException("Everything's fine");
 }
 ```
 
@@ -68,11 +68,11 @@ If a statement does not always throw an exception, it is fairly easy to modify a
 
 ```java
 try {
-	willNotThrowAnException();
+    willNotThrowAnException();
 } catch (Exception e) {
-	throw e; // this does not do anything
+    throw e; // this does not do anything
 } finally {
-	throw new ArbitraryException();
+    throw new ArbitraryException();
 }
 ```
 
@@ -80,21 +80,21 @@ There. Now the method `willNotThrowAnException()` will always throw an `Arbitrar
 
 ```java
 try {
-	try {
-		throw new ExceptionNotThrownException();
-	} catch (Exception e) {
-		throw e;
-	} finally {
-		try {
-			mightThrowAnException();
-		} catch (Exception e) {
-			throw new ExceptionThrownException();
-		}
-	}
+    try {
+        throw new ExceptionNotThrownException();
+    } catch (Exception e) {
+        throw e;
+    } finally {
+        try {
+            mightThrowAnException();
+        } catch (Exception e) {
+            throw new ExceptionThrownException();
+        }
+    }
 } catch (ExceptionThrownException e) {
-	// an exception has been thrown
+    // an exception has been thrown
 } catch (ExceptionNotThrownException e) {
-	// an exception has not been thrown
+    // an exception has not been thrown
 }
 ```
 
