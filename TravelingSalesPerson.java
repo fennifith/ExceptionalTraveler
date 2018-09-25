@@ -3,6 +3,7 @@ import java.awt.Point;
 
 public class TravelingSalesPerson {
 
+	private static int size;
 	private static List<Point> points;
 	private static List<Point> path;
 	private static Point nearest;
@@ -13,8 +14,10 @@ public class TravelingSalesPerson {
 
 	/**
 	 * Runs the traveling sales person algorithm and prints the results in the console.
+	 * 
+	 * @param points	The points to calculate the order of.
 	 */
-	public static void run(List<Point> points) {	
+	public static void run(List<Point> points) throws FinishedException {	
 		try {
 			try {
 				try {
@@ -30,22 +33,92 @@ public class TravelingSalesPerson {
 				} catch (Exception ex) {
 					throw ex;
 				} finally {
-					throw new ArbitraryException();
+					try {
+						size = points.size();
+					} catch (Exception ex) {
+						throw ex;
+					} finally {
+						throw new ArbitraryException();
+					}
 				}
 			}
 		} catch (ArbitraryException e) {
-			
-		}
-		
-		for (Point point : points) {
 			try {
-				getNearest(point, 0);
-			} catch (FinishedException e) {
-				System.out.println("The closest point to " + point.getX() + " is point " + nearest.getX());
-			} catch (ErrorException e) {
-				System.out.println("Error getting point " + point.getX());
-				e.printStackTrace();
-				System.out.println();
+				nearest2 = points.get(0);
+			} catch (Exception ex) {
+				throw ex;
+			} finally {
+				try {
+					getNearest(nearest2, 0);
+				} catch (FinishedException ex) {
+					try {
+						points.remove(nearest2);
+					} catch (Exception exc) {
+						throw exc;
+					} finally {
+						try {
+							path.add(nearest2);
+						} catch (Exception exc) {
+							throw exc;
+						} finally {
+							try {
+								points.remove(nearest);
+							} catch (Exception exc) {
+								throw exc;
+							} finally {
+								try {
+									path.add(nearest);
+								} catch (Exception exc) {
+									throw exc;
+								} finally {
+									try {
+										totalDistance += nearestDistance;
+									} catch (Exception exc) {
+										throw exc;
+									} finally {
+										try {
+											getPath(nearest2, nearest);
+										} catch (FinishedException exc) {
+											try {
+												totalDistance += Math.sqrt(Math.pow(nearest.getX() - nearest2.getX(), 2) + Math.pow(nearest.getY() - nearest2.getY(), 2));
+											} catch (Exception exce) {
+												throw exce;
+											} finally {
+												try {
+													path = path.subList(0, size);
+												} catch (Exception exce) {
+													throw exce;
+												} finally {
+													try {
+														System.out.println("\nPoints calculated! Total distance: " + totalDistance + " units.");
+													} catch (Exception exce) {
+														throw exce;
+													} finally {
+														try {
+															printPath(0);
+														} catch (FinishedException exce) {
+															throw exce;
+														}
+													}
+												}
+											}
+										} catch (ErrorException exc) {
+											throw new FinishedException();
+										}
+									}
+								}
+							}
+						}
+					}
+				} catch (ErrorException ex) {
+					try {
+						System.out.println("Error: not enough points");
+					} catch (Exception exc) {
+						throw exc;
+					} finally {
+						throw new FinishedException();
+					}
+				}
 			}
 		}
 	}
@@ -280,16 +353,56 @@ public class TravelingSalesPerson {
 			}
 		}
 	}
+	
+	/**
+	 * Prints all of the "path" points in the console.
+	 * 
+	 * @param i		The index of the current iteration.
+	 */
+	private static void printPath(int i) throws FinishedException {
+		try {
+			Point point = null;
+			try {
+				try {
+					throw new ArbitraryException();
+				} catch (ArbitraryException e) {
+					throw e;
+				} finally {
+					try {
+						point = path.get(i);
+					} catch (IndexOutOfBoundsException e) {
+						throw new FinishedException();
+					}
+				}
+			} catch (ArbitraryException e) {
+				try {
+					System.out.println("Point " + i + ": (" + point.getX() + ", " + point.getY() + ")");
+				} catch (Exception ex) {
+					throw ex;
+				} finally {
+					throw new TryAgainException();
+				}
+			}
+		} catch (TryAgainException e) {
+			try {
+				printPath(i + 1);
+			} catch (FinishedException ex) {
+				throw ex;
+			}
+		}
+	}
 
 	public static void main(String[] args) {
-		run(Arrays.asList(
-			new Point(0, 0), 
-			new Point(3, 3), 
-			new Point(1, 1), 
-			new Point(5, 5), 
-			new Point(4, 4), 
-			new Point(2, 2)
-		));
+		try {
+			run(new ArrayList<>(Arrays.asList(
+				new Point(6, 1), 
+				new Point(4, 3), 
+				new Point(3, 4),
+				new Point(2, 2), 
+				new Point(1, 6)
+			)));
+		} catch (FinishedException e) {
+		}
 	}
 	
 }
