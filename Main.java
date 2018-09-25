@@ -41,7 +41,15 @@ public class Main {
 			try {
 				getInput();
 			} catch (FinishedException ex) {
-				//run TSP
+				try {
+					TravelingSalesPerson.run(inputX, inputY);
+				} catch (Exception exc) {
+					try {
+						System.exit(0);
+					} catch (Exception exce) {
+						throw exce;
+					}
+				}
 			} catch (Exception ex) {
 				throw ex;
 			} finally {
