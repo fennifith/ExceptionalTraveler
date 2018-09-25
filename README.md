@@ -38,8 +38,8 @@ As it has been over a year since the article was written and there have been no 
 - While methods can be called, no method may return a value.
 - Despite relying partially on the "chronological control structure" (see [this](#chronological-order)), `finally` blocks are allowed.
 - The only things allowed directly inside of a `catch` or `finally` block are:
-	a. Another try/catch(/finally) block.
-	b. A `throw` statement.
+	- Another try/catch(/finally) block.
+	- A `throw` statement.
 - As exceptions must be thrown in each statement, it is impossible to instantiate an object (without throwing an exception in its constructor).
 	- The Reflection APIs might bypass this rule, but in my opinion are not worth the effort.
 - The only way a value can be returned is 
