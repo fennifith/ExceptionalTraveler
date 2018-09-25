@@ -99,3 +99,11 @@ try {
 ```
 
 Yep, this is definitely complicated and stupid. Just what I needed! Now, if `mightThrowAnException()` throws an exception, it will overwrite the `ExceptionNotThrownException` being thrown in the original `try` block and replace it with its own `ExceptionThrownException`, altering the flow of the program.
+
+#### Assertions
+
+As the primary joy that comes from Exceptional Programming is coming up with a way to throw an exception in a specific situation, I also added my own rule regarding the use of assertions:
+
+- One can not assert.
+
+Another possible argument for this is that assertions are intended mainly for use as tests and should not show up in the code of an actual application.
