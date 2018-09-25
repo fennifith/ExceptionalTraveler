@@ -233,22 +233,22 @@ public class TravelingSalesPerson {
 									} catch (ArbitraryException exce) {
 										throw exce;
 									} finally {
-										nearest = points.get(0);
+										p2 = points.get(0);
 									}
 								} catch (IndexOutOfBoundsException exce) {
 									throw exc;
 								} catch (ArbitraryException exce) {
 									try {
-										points.remove(nearest);
+										points.remove(p2);
 									} catch (Exception excep) {
 										throw excep;
 									} finally {
 										try {
-											path.add(nearest);
+											path.add(p2);
 										} catch (Exception excep) {
 											throw excep;
 										} finally {
-											throw new FinishedException();
+											throw new TryAgainException(); // an error happened somewhere but hey let's just ignore it and keep going
 										}
 									}
 								}
@@ -262,22 +262,22 @@ public class TravelingSalesPerson {
 						} catch (ArbitraryException exc) {
 							throw exc;
 						} finally {
-							nearest = points.get(0);
+							p1 = points.get(0);
 						}
 					} catch (IndexOutOfBoundsException exc) {
 						throw ex;
 					} catch (ArbitraryException exc) {
 						try {
-							points.remove(nearest);
+							points.remove(p1);
 						} catch (Exception exce) {
 							throw exce;
 						} finally {
 							try {
-								path.add(nearest);
+								path.add(p1);
 							} catch (Exception exce) {
 								throw exce;
 							} finally {
-								throw new FinishedException();
+								throw new TryAgainException(); // an error happened somewhere but hey let's just ignore it and keep going
 							}
 						}
 					}
