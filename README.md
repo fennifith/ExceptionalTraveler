@@ -1,4 +1,4 @@
-> ExceptionalTraveler is an implementation of the Traveling Salesperson problem using the fundamentals of Exceptional Programming.
+> ExceptionalTraveler is an implementation of the Traveling Salesperson Problem using the fundamentals of Exceptional Programming.
 
 This program is a joke. It is not serious. Please do not take this program seriously. It is not a good demonstration of my programming skills. Do not use this program as reference material. Please don't use this program to educate yourself or others on Java programming. Avoid looking at this program for extended amounts of time. If you experience dizziness or a loss of balance while viewing this program, stop staring at it in awe and seek medical help immediately. If you feel the effects depression or anxiety after becoming aware of this program's existence, please see a qualified counselor for assistance.
 
@@ -8,19 +8,19 @@ The idea for this program was taken from Chet Haase's article for Pointer IO on 
 
 ```java
 try {
-	someMethod();
+    someMethod();
 } catch (NormalException e) {
-	try {
-		anotherMethod();
-	} catch (NormalException e) {
-		try {
-			yetAnotherMethod();
-		} catch (NormalException e) {
-			throw new NormalException("Everything's fine");
-		}
-	}
+    try {
+        anotherMethod();
+    } catch (NormalException e) {
+        try {
+            yetAnotherMethod();
+        } catch (NormalException e) {
+            throw new NormalException("Everything's fine");
+        }
+    }
 } finally {
-	throw new NormalException("Everything's fine");
+    throw new NormalException("Everything's fine");
 }
 ```
 
@@ -38,8 +38,8 @@ As it has been over a year since the article was written and there have been no 
 - While methods can be called, no method may return a value.
 - Despite relying partially on the "chronological control structure" (see [this](#chronological-order)), `finally` blocks are allowed.
 - The only things allowed directly inside of a `catch` or `finally` block are:
-	a. Another try/catch(/finally) block.
-	b. A `throw` statement.
+	- Another try/catch(/finally) block.
+	- A `throw` statement.
 - As exceptions must be thrown in each statement, it is impossible to instantiate an object (without throwing an exception in its constructor).
 	- The Reflection APIs might bypass this rule, but in my opinion are not worth the effort.
 - The only way a value can be returned is 
@@ -68,34 +68,34 @@ If a statement does not always throw an exception, it is fairly easy to modify a
 
 ```java
 try {
-	willNotThrowAnException();
+    willNotThrowAnException();
 } catch (Exception e) {
-	throw e; // this does not do anything
+    throw e; // this does not do anything
 } finally {
-	throw new ArbitraryException();
+    throw new ArbitraryException();
 }
 ```
 
-There. Now the method `willNotThrowAnException()` will always throw an `ArbitraryException` when it is run, right? However... what if you want a different result in the event that an exception *is* thrown? If `willNotThrowAnException()` throws an exception in this snippet, then even though it gets passed to the `catch` block (which throws it again), the `finally` block is still run before the original exception is thrown, effectively overwriting it with an `ArbitraryException` either way. In order to combat this, I racked my brain and actually took advantage of this overwriting behavior to come up with this uselessly complex snippet:
+There. Now the method `willNotThrowAnException()` will always throw an `ArbitraryException` when it is run, right? However... what if you want a different result in the event that an exception *is* thrown by the method? If `willNotThrowAnException()` throws an exception in this snippet, then even though it gets passed to the `catch` block (which throws it again), the `finally` block is still run before the original exception is thrown, effectively overwriting it with the `ArbitraryException` either way. In order to combat this, I racked my brain and actually took advantage of this overwriting behavior to come up with this uselessly complex snippet:
 
 ```java
 try {
-	try {
-		throw new ExceptionNotThrownException();
-	} catch (Exception e) {
-		throw e;
-	} finally {
-		try {
-			mightThrowAnException();
-		} catch (Exception e) {
-			throw new ExceptionThrownException();
-		}
-	}
+    try {
+        throw new ExceptionNotThrownException();
+    } catch (Exception e) {
+        throw e;
+    } finally {
+        try {
+            mightThrowAnException();
+        } catch (Exception e) {
+            throw new ExceptionThrownException();
+        }
+    }
 } catch (ExceptionThrownException e) {
-	// an exception has been thrown
+    // an exception has been thrown
 } catch (ExceptionNotThrownException e) {
-	// an exception has not been thrown
+    // an exception has not been thrown
 }
 ```
 
-Yep, this is definitely complicated and stupid. Just what I needed! Now if `mightThrowAnException()` throws an exception, it will overwrite the `ExceptionNotThrownException` being thrown in the original `try` block and replace it with its own `ExceptionThrownException`, altering the flow of the program.
+Yep, this is definitely complicated and stupid. Just what I needed! Now, if `mightThrowAnException()` throws an exception, it will overwrite the `ExceptionNotThrownException` being thrown in the original `try` block and replace it with its own `ExceptionThrownException`, altering the flow of the program.
