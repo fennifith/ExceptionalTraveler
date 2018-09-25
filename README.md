@@ -4,6 +4,8 @@ This program is a joke. It is not serious. Please do not take this program serio
 
 The idea for this program was taken from Chet Haase's article for Pointer IO on [Exceptional Programming](https://medium.com/pointer-io/exceptional-programming-62ea8150f61f), which describes a programming style using just try/catch blocks and exceptions as the only control structure.
 
+This specific program takes a set of coordinates as input and uses a basic double neighbor heuristic to find the (probably) shortest (ish) possible path that crosses all of the points. It also keeps track of the total distance that has been covered, and outputs it with all of the points at the end of the program.
+
 ## Setup
 
 Obviously, this is a Java program. In order to run this program, download the source code and run the following commands:
