@@ -226,6 +226,58 @@ public class TravelingSalesPerson {
 										}
 									}
 								}
+							} catch (ErrorException exc) {
+								try {
+									try {
+										throw new ArbitraryException();
+									} catch (ArbitraryException exce) {
+										throw exce;
+									} finally {
+										nearest = points.get(0);
+									}
+								} catch (IndexOutOfBoundsException exce) {
+									throw exc;
+								} catch (ArbitraryException exce) {
+									try {
+										points.remove(nearest);
+									} catch (Exception excep) {
+										throw excep;
+									} finally {
+										try {
+											path.add(nearest);
+										} catch (Exception excep) {
+											throw excep;
+										} finally {
+											throw new FinishedException();
+										}
+									}
+								}
+							}
+						}
+					}
+				} catch (ErrorException ex) {
+					try {
+						try {
+							throw new ArbitraryException();
+						} catch (ArbitraryException exc) {
+							throw exc;
+						} finally {
+							nearest = points.get(0);
+						}
+					} catch (IndexOutOfBoundsException exc) {
+						throw ex;
+					} catch (ArbitraryException exc) {
+						try {
+							points.remove(nearest);
+						} catch (Exception exce) {
+							throw exce;
+						} finally {
+							try {
+								path.add(nearest);
+							} catch (Exception exce) {
+								throw exce;
+							} finally {
+								throw new FinishedException();
 							}
 						}
 					}
