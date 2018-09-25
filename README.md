@@ -15,7 +15,7 @@ javac Main.java
 java Main
 ```
 
-The program will then prompt you to input coordinates, after which it will pass the coordinates to `TravelingSalesPerson.java`, which will calculate and output the resulting order.
+The program will then prompt you to input coordinates, after which it will pass the coordinates to `TravellingSalesPerson.java`, which will calculate and output the resulting order.
 
 ## Guidelines
 
