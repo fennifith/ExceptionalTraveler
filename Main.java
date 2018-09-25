@@ -113,43 +113,5 @@ public class Main {
 			}
 		}
 	}
-
-	/**
-	 * This exception doesn't really mean anything, and only serves to throw an exception in
-	 * the case that there is no exception which a statement can throw. It is the one part of
-	 * this project allowing chronological order, and the only thing giving me sanity in this
-	 * cold dark world.
-	 */
-	private static class ArbitraryException extends Exception {
-
-		private ArbitraryException() {
-			super();
-		}
-		
-	}
-
-	/**
-	 * This exception class exists to represent recursion; it is thrown with the intention
-	 * to notify the program that its statement should be run again before it is finished.
-	 */
-	private static class TryAgainException extends Exception {
-
-		private TryAgainException() {
-			super();
-		}
-		
-	}
-
-	/**
-	 * This exception class represents the end of a sequence of recursion; when it is thrown,
-	 * the program knows that the loop is complete.
-	 */
-	private static class FinishedException extends Exception {
-
-		private FinishedException() {
-			super();
-		}
-		
-	}
 	
 }
