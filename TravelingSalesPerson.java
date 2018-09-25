@@ -6,6 +6,10 @@ public class TravelingSalesPerson {
 	private static List<Point> points;
 	private static List<Point> path;
 	private static Point nearest;
+	private static double nearestDistance;
+	private static Point nearest2;
+	private static double nearestDistance2;
+	private static double totalDistance;
 
 	/**
 	 * Runs the traveling sales person algorithm and prints the results in the console.
@@ -35,7 +39,7 @@ public class TravelingSalesPerson {
 		
 		for (Point point : points) {
 			try {
-				getNearest(point, 0, 0.1);
+				getNearest(point, 0);
 			} catch (FinishedException e) {
 				System.out.println("The closest point to " + point.getX() + " is point " + nearest.getX());
 			} catch (ErrorException e) {
@@ -45,15 +49,131 @@ public class TravelingSalesPerson {
 			}
 		}
 	}
+	
+	/**
+	 * Applies the double neighbor heuristic and adds the closest points to the path. The first
+	 * two points should be calculated first before calling this method.
+	 * 
+	 * @param p1		The "right" point.
+	 * @param p2		The "left" point.
+	 */
+	private static void getPath(Point p1, Point p2) throws FinishedException, ErrorException {
+		try {
+			try {
+				try {
+					throw new ArbitraryException();
+				} catch (ArbitraryException e) {
+					throw e;
+				} finally {
+					try {
+						int shouldNotBeZero = 1 / points.size();
+					} catch (ArithmeticException e) {
+						throw new FinishedException();
+					}
+				}
+			} catch (ArbitraryException e) {
+				try {
+					getNearest(p1, 0);
+				} catch (FinishedException ex) {
+					try {
+						nearest2 = nearest;
+					} catch (Exception exc) {
+						throw exc;
+					} finally {
+						try {
+							nearestDistance2 = nearestDistance;
+						} catch (Exception exc) {
+							throw exc;
+						} finally {
+							try {
+								getNearest(p2, 0);
+							} catch (FinishedException exc) {
+								try {
+									try {
+										throw new ArbitraryException();
+									} catch (ArbitraryException exce) {
+										throw exce;
+									} finally {
+										try { // assert which distance is smaller
+											int shouldNotBeZero = 1 / (int) Math.floor(nearestDistance / nearestDistance2);
+										} catch (ArithmeticException exce) {
+											throw exce;
+										}
+									}
+								} catch (ArbitraryException exce) { // "nearestDistance2" is smaller
+									try {
+										p1 = nearest2;
+									} catch (Exception excep) {
+										throw excep;
+									} finally {
+										try {
+											points.remove(p1);
+										} catch (Exception excep) {
+											throw excep;
+										} finally {
+											try {
+												path.add(0, p1);
+											} catch (Exception excep) {
+												throw excep;
+											} finally {
+												try {
+													totalDistance += nearestDistance2;
+												} catch (Exception excep) {
+													throw excep;
+												} finally {
+													throw new TryAgainException();
+												}
+											}
+										}
+									}
+								} catch (ArithmeticException exce) { // "nearestDistance" is smaller
+									try {
+										p2 = nearest;
+									} catch (Exception excep) {
+										throw excep;
+									} finally {
+										try {
+											points.remove(p2);
+										} catch (Exception excep) {
+											throw excep;
+										} finally {
+											try {
+												path.add(p2);
+											} catch (Exception excep) {
+												throw excep;
+											} finally {
+												try {
+													totalDistance += nearestDistance;
+												} catch (Exception excep) {
+													throw excep;
+												} finally {
+													throw new TryAgainException();
+												}
+											}
+										}
+									}
+								}
+							}
+						}
+					}
+				}			
+			}
+		} catch (TryAgainException e) {
+			try {
+				getPath(p1, p2);
+			} catch (FinishedException ex) {
+				throw ex;
+			}
+		}
+	}
 
 	/**
 	 * Finds the point nearest to a given parameter...
 	 * 
 	 * @param p 		The point to compare other points to.
 	 * @param i 		The current (or start) index of the iteration.
-	 * @param distance	The calculated calculated distance (between "p" and the "nearest" field).
 	 */
-	private static void getNearest(Point p, int i, double distance) throws FinishedException, ErrorException {
+	private static void getNearest(Point p, int i) throws FinishedException, ErrorException {
 		try {
 			Point next = null;
 			try {
@@ -109,14 +229,14 @@ public class TravelingSalesPerson {
 										throw exce;
 									} finally {
 										try {
-											int mightBeZero = 1 / (int) Math.floor(distance);
+											int mightBeZero = 1 / (int) Math.floor(nearestDistance);
 										} catch (ArithmeticException exce) {
 											throw new ArbitraryException();
 										}
 									}
 								} catch (ErrorException exce) {
 									try {
-										int shouldNotBeZero = 1 / (int) Math.floor(distance / nextDistance);
+										int shouldNotBeZero = 1 / (int) Math.floor(nearestDistance / nextDistance);
 									} catch (ArithmeticException excep) {
 										throw new TryAgainException();
 									}
@@ -124,7 +244,7 @@ public class TravelingSalesPerson {
 							}
 						} catch (ArbitraryException exce) {
 							try {
-								distance = nextDistance;
+								nearestDistance = nextDistance;
 							} catch (Exception excep) {
 								throw excep;
 							} finally {
@@ -142,7 +262,7 @@ public class TravelingSalesPerson {
 			}
 		} catch (TryAgainException e) {
 			try {
-				getNearest(p, i + 1, distance);
+				getNearest(p, i + 1);
 			} catch (FinishedException ex) {
 				throw ex;
 			}
