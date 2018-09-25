@@ -248,34 +248,39 @@ public class TravelingSalesPerson {
 	 */
 	private static void getNearest(Point p, int i) throws FinishedException, ErrorException {
 		try {
-			Point next = null;
 			try {
 				try {
 					throw new ArbitraryException();
 				} catch (ArbitraryException e) {
 					throw e;
 				} finally {
-					try {
-						next = points.get(i);
-					} catch (IndexOutOfBoundsException e) {
-						throw new FinishedException();
-					}
+					int shouldBeZero = 1 / i;
 				}
-			} catch (ArbitraryException e) {
+			} catch (ArithmeticException e) {
+				try {
+					nearest = null;
+				} catch (Exception ex) {
+					throw ex;
+				} finally {
+					throw new ArbitraryException();
+				}
+			}
+		} catch (ArbitraryException e) {
+			try {
+				Point next = null;
 				try {
 					try {
 						throw new ArbitraryException();
-					} catch (ArbitraryException exc) {
-						throw exc;
+					} catch (ArbitraryException ex) {
+						throw ex;
 					} finally {
 						try {
-							int shouldNotBeZero = 1 / (String.valueOf(next.equals(p)).length() - 4);
-						} catch (ArithmeticException exce) {
-							throw new TryAgainException();
+							next = points.get(i);
+						} catch (IndexOutOfBoundsException ex) {
+							throw new FinishedException();
 						}
 					}
-				} catch (ArbitraryException ex) {			
-					Double nextDistance = null;
+				} catch (ArbitraryException ex) {
 					try {
 						try {
 							throw new ArbitraryException();
@@ -283,12 +288,13 @@ public class TravelingSalesPerson {
 							throw exc;
 						} finally {
 							try {
-								nextDistance = Math.sqrt(Math.pow(p.getX() - next.getX(), 2) + Math.pow(p.getY() - next.getY(), 2));
-							} catch (Exception exc) {
+								int shouldNotBeZero = 1 / (String.valueOf(next.equals(p)).length() - 4);
+							} catch (ArithmeticException exce) {
 								throw new TryAgainException();
 							}
 						}
-					} catch (ArbitraryException exc) {
+					} catch (ArbitraryException exc) {			
+						Double nextDistance = null;
 						try {
 							try {
 								throw new ArbitraryException();
@@ -296,59 +302,73 @@ public class TravelingSalesPerson {
 								throw exce;
 							} finally {
 								try {
-									try {
-										throw new ErrorException();
-									} catch (ErrorException exce) {
-										throw exce;
-									} finally {
-										try {
-											int mightBeZero = 1 / (int) Math.floor(nearestDistance);
-										} catch (ArithmeticException exce) {
-											throw new ArbitraryException();
-										}
-									}
-								} catch (ErrorException exce) {
-									try {
-										int shouldNotBeZero = 1 / (int) Math.floor(nearestDistance / nextDistance);
-									} catch (ArithmeticException excep) {
-										throw new TryAgainException();
-									}
+									nextDistance = Math.sqrt(Math.pow(p.getX() - next.getX(), 2) + Math.pow(p.getY() - next.getY(), 2));
+								} catch (Exception exce) {
+									throw new TryAgainException();
 								}
 							}
 						} catch (ArbitraryException exce) {
 							try {
-								nearestDistance = nextDistance;
-							} catch (Exception excep) {
-								throw excep;
-							} finally {
 								try {
-									nearest = next;
-								} catch (Exception excep) {
+									throw new ArbitraryException();
+								} catch (ArbitraryException excep) {
 									throw excep;
 								} finally {
-									throw new TryAgainException();
+									try {
+										try {
+											throw new ErrorException();
+										} catch (ErrorException excep) {
+											throw excep;
+										} finally {
+											try {
+												int mightBeZero = 1 / (int) Math.floor(nearestDistance);
+											} catch (ArithmeticException excep) {
+												throw new ArbitraryException();
+											}
+										}
+									} catch (ErrorException excep) {
+										try {
+											int shouldNotBeZero = 1 / (int) Math.floor(nearestDistance / nextDistance);
+										} catch (ArithmeticException except) {
+											throw new TryAgainException();
+										}
+									}
+								}
+							} catch (ArbitraryException excep) {
+								try {
+									nearestDistance = nextDistance;
+								} catch (Exception except) {
+									throw except;
+								} finally {
+									try {
+										nearest = next;
+									} catch (Exception except) {
+										throw except;
+									} finally {
+										throw new TryAgainException();
+									}
 								}
 							}
 						}
 					}
 				}
-			}
-		} catch (TryAgainException e) {
-			try {
-				getNearest(p, i + 1);
-			} catch (FinishedException ex) {
-				throw ex;
-			}
-		} catch (FinishedException e) {
-			try {
-				throw new FinishedException();
-			} catch (FinishedException exc) {
-				throw exc;
-			} finally {
+			} catch (TryAgainException ex) {
 				try {
-					nearest.getX();
-				} catch (NullPointerException exc) {
-					throw new ErrorException();
+					getNearest(p, i + 1);
+				} catch (FinishedException exc) {
+					throw exc;
+				}
+			} catch (FinishedException ex) {
+				try {
+					throw new FinishedException();
+				} catch (FinishedException exc) {
+					throw exc;
+				} finally {
+					try {
+						nearest.getX();
+					} catch (NullPointerException exc) {
+						throw new ErrorException();
+					}
 				}
 			}
 		}
