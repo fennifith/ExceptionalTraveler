@@ -1,48 +1,39 @@
 import java.util.*;
+import java.awt.Point;
 
 public class Main {
 
 	private static Scanner scanner;
-	private static List<Integer> inputX;
+	private static List<Point> points;
 	private static List<Integer> inputY;
 
 	public static void main(String[] args) {
 		try {
 			try {
 				try {
-					try {
-						scanner = new Scanner(System.in);
-					} catch (Exception e) {
-						throw e;
-					} finally {
-						throw new ArbitraryException();
-					}
-				} catch (ArbitraryException e) {
-					try {
-						inputX = new ArrayList<>();
-					} catch (Exception ex) {
-						throw ex;
-					} finally {
-						throw new ArbitraryException();
-					}
+					scanner = new Scanner(System.in);
+				} catch (Exception e) {
+					throw e;
 				} finally {
 					throw new ArbitraryException();
 				}
 			} catch (ArbitraryException e) {
 				try {
-					inputY = new ArrayList<>();
+					points = new ArrayList<>();
 				} catch (Exception ex) {
 					throw ex;
 				} finally {
 					throw new ArbitraryException();
 				}
+			} finally {
+				throw new ArbitraryException();
 			}
 		} catch (ArbitraryException e) {
 			try {
 				getInput();
 			} catch (FinishedException ex) {
 				try {
-					TravelingSalesPerson.run(inputX, inputY);
+					TravelingSalesPerson.run(points);
 				} catch (Exception exc) {
 					try {
 						System.exit(0);
@@ -64,6 +55,7 @@ public class Main {
 
 	private static void getInput() throws FinishedException {
 		try {
+			int x, y;
 			try {
 				try {
 					throw new ArbitraryException();
@@ -76,7 +68,7 @@ public class Main {
 						throw ex;
 					} finally {
 						try {
-							inputX.add(Integer.parseInt(scanner.nextLine()));
+							x = Integer.parseInt(scanner.nextLine());
 						} catch (NumberFormatException e) {
 							throw new FinishedException();
 						}
@@ -95,14 +87,20 @@ public class Main {
 							throw exc;
 						} finally {
 							try {
-								inputY.add(Integer.parseInt(scanner.nextLine()));
+								y = Integer.parseInt(scanner.nextLine());
 							} catch (NumberFormatException exce) {
 								throw new FinishedException();
 							}
 						}
 					}
 				} catch (ArbitraryException ex) {
-					throw new TryAgainException();
+					try {
+						points.add(new Point(x, y));
+					} catch (Exception exc) {
+						throw exc;
+					} finally {
+						throw new TryAgainException();
+					}
 				}
 			}
 		} catch (TryAgainException e) {
