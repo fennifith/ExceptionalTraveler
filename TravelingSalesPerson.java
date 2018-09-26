@@ -1,7 +1,7 @@
 import java.util.*;
 import java.awt.Point;
 
-public class TravellingSalesPerson {
+public class TravelingSalesPerson {
 
 	private static int size;
 	private static List<Point> points;
@@ -21,7 +21,7 @@ public class TravellingSalesPerson {
 		try {
 			try {
 				try {
-					TravellingSalesPerson.points = points;
+					TravelingSalesPerson.points = points;
 				} catch (Exception e) {
 					throw e;
 				} finally {

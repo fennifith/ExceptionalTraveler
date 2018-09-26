@@ -33,7 +33,7 @@ public class Main {
 				getInput();
 			} catch (FinishedException ex) {
 				try {
-					TravellingSalesPerson.run(points);
+					TravelingSalesPerson.run(points);
 				} catch (Exception exc) {
 					try {
 						System.exit(0);
